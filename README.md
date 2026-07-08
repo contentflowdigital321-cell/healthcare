@@ -18,6 +18,7 @@ A fully responsive, single-page healthcare website built with vanilla HTML, CSS,
 - **Testimonials** — four patient reviews with real avatar photos
 - **Lead magnet** — free preventive-care checklist opt-in with its own capture form
 - **Enquiry form** with client-side validation (name, email, phone), inline field-level error messages, and live submission via FormSubmit.co
+- **Post-submission celebration** — spoken thank-you message (Web Speech API) plus a rising balloon animation on successful form submission
 - **WhatsApp chat widget** — floating button with quick-reply suggestions that deep-link to `wa.me`
 - **Fade-in on scroll** via `IntersectionObserver`
 - Fully accessible — semantic HTML5, ARIA labels, keyboard-navigable, dark-section-aware focus rings
