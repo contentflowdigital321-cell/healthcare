@@ -4,6 +4,8 @@ A fully responsive, single-page healthcare website built with vanilla HTML, CSS,
 
 **Live site:** https://contentflowdigital321-cell.github.io/healthcare/
 
+![Shimmering Meadow Health Clinic — homepage screenshot](screenshot.png)
+
 ---
 
 ## Features
@@ -36,6 +38,9 @@ healthcare/
 ├── index.html          # All markup
 ├── style.css           # All styles (mobile-first)
 ├── script.js           # All JavaScript
+├── screenshot.png      # Homepage screenshot (auto-generated)
+├── scripts/
+│   └── screenshot.js   # Playwright screenshot utility
 └── .github/
     └── workflows/
         └── deploy.yml  # GitHub Actions deploy workflow
@@ -55,6 +60,14 @@ open index.html
 # Linux
 xdg-open index.html
 ```
+
+## Regenerating the screenshot
+
+```bash
+node scripts/screenshot.js
+```
+
+Requires Node.js — Playwright and Chromium are fetched automatically via `npx`.
 
 ## Deployment
 
