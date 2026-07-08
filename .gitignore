@@ -1,1 +1,15 @@
 .vercel
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+node_modules/
+
+# Claude Code local skill plugin installs (not site source)
+.agents/
+.claude/skills/
+skills-lock.json
