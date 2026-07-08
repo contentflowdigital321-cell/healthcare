@@ -72,6 +72,49 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 /* ============================================
+   WHATSAPP CHAT WIDGET
+   ============================================ */
+const waWidget = document.getElementById('whatsapp-widget');
+
+if (waWidget) {
+  const waFab     = document.getElementById('whatsapp-fab');
+  const waPanel   = document.getElementById('whatsapp-panel');
+  const waClose   = document.getElementById('whatsapp-close');
+  const waNumber  = waWidget.dataset.whatsappNumber;
+
+  function openWaPanel() {
+    waPanel.hidden = false;
+    waFab.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeWaPanel() {
+    waPanel.hidden = true;
+    waFab.setAttribute('aria-expanded', 'false');
+  }
+
+  waFab.addEventListener('click', () => {
+    if (waPanel.hidden) openWaPanel(); else closeWaPanel();
+  });
+
+  waClose.addEventListener('click', closeWaPanel);
+
+  document.addEventListener('click', e => {
+    if (!waPanel.hidden && !waWidget.contains(e.target)) closeWaPanel();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !waPanel.hidden) closeWaPanel();
+  });
+
+  document.querySelectorAll('.whatsapp-suggestion').forEach(link => {
+    const text = link.dataset.query || '';
+    link.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+    link.target = '_blank';
+    link.rel = 'noopener';
+  });
+}
+
+/* ============================================
    ENQUIRY FORM — validation & submission
    ============================================ */
 const form          = document.getElementById('enquiry-form');
@@ -148,10 +191,17 @@ function validate() {
   return valid;
 }
 
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/contentflowdigital321@gmail.com';
+const submitBtn  = form.querySelector('.btn-submit');
+const formError  = document.getElementById('form-error');
+
 form.addEventListener('submit', e => {
   e.preventDefault();
 
   if (!validate()) return;
+
+  formError.hidden = true;
+  formError.textContent = '';
 
   // Collect form data
   const data = {
@@ -160,33 +210,42 @@ form.addEventListener('submit', e => {
     phone:   document.getElementById('phone').value.trim(),
     date:    document.getElementById('date').value,
     message: document.getElementById('message').value.trim(),
+    _subject: 'New appointment request — Shimmering Meadow Health Clinic',
   };
 
-  // -------------------------------------------------------
-  // TODO: Send data to your backend
-  // Replace this block with a real API call, for example:
-  //
-  //   fetch('/api/enquiry', {
-  //     method:  'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body:    JSON.stringify(data),
-  //   })
-  //   .then(res => res.json())
-  //   .then(json => console.log('Server response:', json))
-  //   .catch(err => console.error('Submission error:', err));
-  //
-  // -------------------------------------------------------
-  console.log('Enquiry form data:', data);
+  submitBtn.disabled = true;
 
-  // Show success banner and hide the form
-  form.hidden = true;
-  successBanner.hidden = false;
-  successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  fetch(FORMSUBMIT_ENDPOINT, {
+    method:  'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept':       'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(res => {
+      if (!res.ok) throw new Error(`FormSubmit responded with ${res.status}`);
+      return res.json();
+    })
+    .then(() => {
+      // Show success banner and hide the form
+      form.hidden = true;
+      successBanner.hidden = false;
+      successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-  // Reset and restore the form after 5 seconds
-  setTimeout(() => {
-    form.reset();
-    form.hidden = false;
-    successBanner.hidden = true;
-  }, 5000);
+      // Reset and restore the form after 5 seconds
+      setTimeout(() => {
+        form.reset();
+        form.hidden = false;
+        successBanner.hidden = true;
+      }, 5000);
+    })
+    .catch(err => {
+      console.error('Submission error:', err);
+      formError.textContent = "Sorry, something went wrong sending your request. Please try again or call us directly.";
+      formError.hidden = false;
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+    });
 });

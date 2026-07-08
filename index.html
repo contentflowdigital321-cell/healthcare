@@ -24,7 +24,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
@@ -61,7 +61,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#contact" class="nav-cta">Book Appointment</a></li>
+          <li><a href="#contact" class="nav-cta">Book an Appointment</a></li>
         </ul>
       </div>
     </nav>
@@ -74,7 +74,7 @@
       <div class="container hero-content">
         <p class="hero-eyebrow fade-in">Shimmering Meadow Health Clinic</p>
         <h1 id="hero-heading" class="hero-heading fade-in">
-          Compassionate Care,<br />Close to You
+          Compassionate Care,<br />Rooted in Community
         </h1>
         <p class="hero-sub fade-in">
           Trusted by thousands of patients, our board-certified physicians
@@ -86,14 +86,10 @@
         </div>
       </div>
 
-      <!-- Botanical accent — tied to the "Shimmering Meadow" name -->
-      <svg class="hero-botanical" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="210" cy="140" rx="60" ry="130" transform="rotate(-20 210 140)" fill="white"/>
-        <ellipse cx="290" cy="185" rx="50" ry="115" transform="rotate(30 290 185)" fill="white"/>
-        <ellipse cx="155" cy="205" rx="45" ry="100" transform="rotate(-45 155 205)" fill="white"/>
-        <ellipse cx="330" cy="95" rx="35" ry="80" transform="rotate(15 330 95)" fill="white"/>
-        <ellipse cx="135" cy="115" rx="28" ry="68" transform="rotate(-60 135 115)" fill="white"/>
-        <ellipse cx="360" cy="240" rx="30" ry="65" transform="rotate(50 360 240)" fill="white"/>
+      <!-- Signature illustration — tall grass, the "Shimmering Meadow" in the clinic's name -->
+      <svg class="hero-botanical" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0,200 L0,140 C40,110 70,150 100,120 C130,90 150,140 180,110 C210,80 230,145 260,115 C290,85 315,150 350,125 C385,100 405,155 440,130 C475,105 495,150 530,120 C565,90 590,150 625,130 C660,110 680,155 715,125 C750,95 775,150 810,120 C845,90 865,155 900,130 C935,105 960,150 995,125 C1030,100 1055,155 1090,130 C1115,112 1130,140 1150,125 C1170,110 1185,150 1200,135 L1200,200 Z" fill="#1F3D2B"/>
+        <path d="M120,200 L120,155 C140,135 155,160 170,145 C185,130 195,158 215,145 M340,200 L340,150 C358,132 372,158 388,143 C404,128 415,155 434,142 M600,200 L600,152 C617,134 632,159 648,145 C664,131 676,157 694,144 M880,200 L880,150 C897,132 911,158 927,144 C943,130 955,157 973,143" stroke="#D9A441" stroke-width="6" stroke-linecap="round" fill="none"/>
       </svg>
 
       <!-- Trust strip -->
@@ -453,7 +449,7 @@
         <p class="cta-eyebrow">Ready when you are</p>
         <h2 id="cta-heading">Your health deserves expert hands<br />and a compassionate heart.</h2>
         <p>Join the Shimmering Meadow family — where your wellbeing is always the priority.</p>
-        <a href="#contact" class="btn btn-white btn-large">Book Your Appointment</a>
+        <a href="#contact" class="btn btn-white btn-large">Book an Appointment</a>
       </div>
     </section>
 
@@ -548,8 +544,10 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-submit">
-              Send Request
+              Request Appointment
             </button>
+
+            <p class="form-error" id="form-error" hidden role="alert" aria-live="polite"></p>
 
           </form>
 
@@ -572,6 +570,9 @@
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer" role="contentinfo">
+    <svg class="footer-botanical" viewBox="0 0 300 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0,40 C20,20 35,35 50,22 C65,9 80,32 100,20 C120,8 135,30 155,20 C175,10 190,32 210,20 C230,8 245,30 265,20 C280,12 290,25 300,20" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </svg>
     <div class="container footer-inner">
 
       <div class="footer-brand">
@@ -648,6 +649,49 @@
     </div>
   </footer>
 
+  <!-- ===================== WHATSAPP CHAT WIDGET ===================== -->
+  <!-- Replace WHATSAPP_NUMBER below (E.164, no + or spaces) with the clinic's real WhatsApp number -->
+  <div class="whatsapp-widget" id="whatsapp-widget" data-whatsapp-number="15550001234">
+
+    <div class="whatsapp-panel" id="whatsapp-panel" role="dialog" aria-labelledby="whatsapp-panel-title" hidden>
+      <div class="whatsapp-panel-header">
+        <span class="whatsapp-avatar" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="22" height="22" fill="#fff"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.625.85 5.055 2.293 7.031L4.75 27.25l5.42-1.716A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.628 3 16.001 3zm0 21.75a9.7 9.7 0 0 1-4.95-1.354l-.355-.21-3.216 1.02.99-3.13-.232-.362A9.72 9.72 0 0 1 6.25 15c0-5.376 4.375-9.75 9.751-9.75S25.75 9.624 25.75 15 21.377 24.75 16.001 24.75zm5.34-7.297c-.293-.147-1.734-.856-2.003-.954-.269-.098-.464-.147-.66.147-.196.293-.758.954-.929 1.15-.171.196-.343.22-.636.073-.293-.147-1.235-.455-2.352-1.452-.87-.776-1.457-1.735-1.628-2.028-.171-.293-.018-.452.129-.598.132-.132.293-.343.44-.514.147-.171.196-.293.293-.489.098-.196.049-.367-.024-.514-.073-.147-.66-1.589-.904-2.176-.238-.573-.48-.495-.66-.504l-.562-.01c-.196 0-.514.073-.783.367-.269.293-1.026 1.003-1.026 2.445 0 1.442 1.05 2.835 1.196 3.031.147.196 2.067 3.157 5.008 4.428.7.302 1.246.483 1.672.618.702.223 1.341.192 1.847.117.563-.084 1.734-.709 1.978-1.394.244-.685.244-1.271.171-1.394-.073-.122-.269-.196-.562-.343z"/></svg>
+        </span>
+        <span class="whatsapp-panel-title">
+          <strong id="whatsapp-panel-title">Shimmering Meadow</strong>
+          <span class="whatsapp-status"><i aria-hidden="true"></i>Typically replies within an hour</span>
+        </span>
+        <button type="button" class="whatsapp-close" id="whatsapp-close" aria-label="Close chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="whatsapp-panel-body">
+        <p class="whatsapp-bubble">👋 Hi! How can we help you today? Pick a question below or send us your own message.</p>
+
+        <div class="whatsapp-suggestions" id="whatsapp-suggestions">
+          <a class="whatsapp-suggestion" data-query="Hi! I'd like to book an appointment.">I'd like to book an appointment</a>
+          <a class="whatsapp-suggestion" data-query="Hi! What are your clinic hours and location?">What are your hours &amp; location?</a>
+          <a class="whatsapp-suggestion" data-query="Hi! I have a question about your services.">I have a question about your services</a>
+          <a class="whatsapp-suggestion" data-query="Hi! I'd like to speak with someone now.">I'd like to speak with someone now</a>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="whatsapp-fab"
+      id="whatsapp-fab"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="whatsapp-panel"
+      aria-label="Chat with us on WhatsApp"
+    >
+      <span class="whatsapp-pulse" aria-hidden="true"></span>
+      <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.625.85 5.055 2.293 7.031L4.75 27.25l5.42-1.716A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.628 3 16.001 3zm0 21.75a9.7 9.7 0 0 1-4.95-1.354l-.355-.21-3.216 1.02.99-3.13-.232-.362A9.72 9.72 0 0 1 6.25 15c0-5.376 4.375-9.75 9.751-9.75S25.75 9.624 25.75 15 21.377 24.75 16.001 24.75zm5.34-7.297c-.293-.147-1.734-.856-2.003-.954-.269-.098-.464-.147-.66.147-.196.293-.758.954-.929 1.15-.171.196-.343.22-.636.073-.293-.147-1.235-.455-2.352-1.452-.87-.776-1.457-1.735-1.628-2.028-.171-.293-.018-.452.129-.598.132-.132.293-.343.44-.514.147-.171.196-.293.293-.489.098-.196.049-.367-.024-.514-.073-.147-.66-1.589-.904-2.176-.238-.573-.48-.495-.66-.504l-.562-.01c-.196 0-.514.073-.783.367-.269.293-1.026 1.003-1.026 2.445 0 1.442 1.05 2.835 1.196 3.031.147.196 2.067 3.157 5.008 4.428.7.302 1.246.483 1.672.618.702.223 1.341.192 1.847.117.563-.084 1.734-.709 1.978-1.394.244-.685.244-1.271.171-1.394-.073-.122-.269-.196-.562-.343z"/></svg>
+    </button>
+  </div>
 
   <script type="application/ld+json">
   {
