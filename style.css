@@ -184,6 +184,12 @@ address { font-style: normal; }
   outline: none;
 }
 
+.btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* ============================================
    FADE-IN ANIMATION
    ============================================ */
@@ -231,7 +237,7 @@ address { font-style: normal; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--nav-height);
+  min-height: var(--nav-height);
 }
 
 .nav-logo {
@@ -267,14 +273,23 @@ address { font-style: normal; }
   font-size: .95rem;
   font-weight: 500;
   color: var(--text-muted);
+  white-space: nowrap;
   transition: color var(--transition), background var(--transition);
+}
+
+.nav-links .nav-cta {
+  flex-shrink: 0;
 }
 
 .nav-links a:hover,
 .nav-links a:focus-visible {
   color: var(--meadow-800);
   background: #EAF1E1;
-  outline: none;
+}
+
+.nav-links a:focus-visible {
+  outline: 3px solid var(--meadow-900);
+  outline-offset: 2px;
 }
 
 .nav-links .nav-cta {
@@ -286,6 +301,11 @@ address { font-style: normal; }
 .nav-links .nav-cta:hover,
 .nav-links .nav-cta:focus-visible {
   background: var(--meadow-900);
+}
+
+.nav-links .nav-cta:focus-visible {
+  outline: 3px solid var(--meadow-900);
+  outline-offset: 2px;
 }
 
 /* Hamburger button */
@@ -958,11 +978,11 @@ textarea.field-error {
 
 .footer-bottom p {
   font-size: .875rem;
-  color: rgba(255, 255, 255, .45);
+  color: rgba(255, 255, 255, .6);
 }
 
 .footer-legal a {
-  color: rgba(255, 255, 255, .45);
+  color: rgba(255, 255, 255, .6);
   transition: color var(--transition);
 }
 
@@ -1387,5 +1407,75 @@ textarea.field-error {
   .fade-in {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ============================================
+   BALLOON CELEBRATION (form submit success)
+   ============================================ */
+.balloon-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -20vh;
+  width: 42px;
+  height: 52px;
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  opacity: 0.95;
+  animation-name: balloonRise;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.balloon::before {
+  /* knot */
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 6px;
+  height: 6px;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.balloon::after {
+  /* string */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1px;
+  height: 40px;
+  background: var(--meadow-600);
+  opacity: 0.5;
+}
+
+.balloon--meadow { background: var(--meadow-400); }
+.balloon--amber  { background: var(--amber-400); }
+.balloon--amber-deep { background: var(--amber-600); }
+.balloon--coral  { background: var(--coral-500); }
+
+@keyframes balloonRise {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(24px) translateY(-60vh) rotate(6deg);
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(-16px) translateY(-125vh) rotate(-4deg);
+    opacity: 0;
   }
 }

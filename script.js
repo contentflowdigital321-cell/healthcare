@@ -56,16 +56,6 @@ const fadeObserver = new IntersectionObserver(
 document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 /* ============================================
-   AVATAR COLOURS
-   ============================================ */
-const AVATAR_PALETTE = ['#0b6e8c', '#14b8a6', '#7c3aed', '#db2777'];
-
-document.querySelectorAll('.avatar[data-color]').forEach(el => {
-  const idx = Number(el.dataset.color) % AVATAR_PALETTE.length;
-  el.style.background = AVATAR_PALETTE[idx];
-});
-
-/* ============================================
    FOOTER YEAR
    ============================================ */
 const yearEl = document.getElementById('year');
@@ -195,6 +185,43 @@ const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/contentflowdigital321@gm
 const submitBtn  = form.querySelector('.btn-submit');
 const formError  = document.getElementById('form-error');
 
+/**
+ * Speak the success message aloud using the browser's built-in TTS voice.
+ */
+function speakSuccessMessage() {
+  if (!('speechSynthesis' in window)) return;
+  const utterance = new SpeechSynthesisUtterance(
+    'Hurray, thank you for submission. We will get back in 3 business days.'
+  );
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  window.speechSynthesis.cancel(); // avoid overlapping queued speech
+  window.speechSynthesis.speak(utterance);
+}
+
+/**
+ * Release a burst of floating balloons as a celebratory effect.
+ */
+function launchBalloonEffect() {
+  const colors = ['balloon--meadow', 'balloon--amber', 'balloon--amber-deep', 'balloon--coral'];
+  const container = document.createElement('div');
+  container.className = 'balloon-container';
+  container.setAttribute('aria-hidden', 'true');
+
+  const count = 14;
+  for (let i = 0; i < count; i++) {
+    const balloon = document.createElement('div');
+    balloon.className = `balloon ${colors[i % colors.length]}`;
+    balloon.style.left = `${Math.random() * 92}%`;
+    balloon.style.animationDuration = `${3.2 + Math.random() * 1.6}s`;
+    balloon.style.animationDelay = `${Math.random() * 0.6}s`;
+    container.appendChild(balloon);
+  }
+
+  document.body.appendChild(container);
+  setTimeout(() => container.remove(), 6000);
+}
+
 form.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -214,6 +241,8 @@ form.addEventListener('submit', e => {
   };
 
   submitBtn.disabled = true;
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.textContent = 'Sending…';
 
   fetch(FORMSUBMIT_ENDPOINT, {
     method:  'POST',
@@ -233,6 +262,10 @@ form.addEventListener('submit', e => {
       successBanner.hidden = false;
       successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
+      // Post-submission celebration: spoken confirmation + balloon effect
+      speakSuccessMessage();
+      launchBalloonEffect();
+
       // Reset and restore the form after 5 seconds
       setTimeout(() => {
         form.reset();
@@ -247,5 +280,6 @@ form.addEventListener('submit', e => {
     })
     .finally(() => {
       submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
     });
 });
